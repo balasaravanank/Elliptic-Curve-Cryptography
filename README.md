@@ -72,5 +72,6 @@ int main() {
 
 ---
 ## OUTPUT
-<img width="3837" height="1838" alt="Screenshot 2025-10-24 220931" src="https://github.com/user-attachments/assets/562e9fb7-4480-4b48-aeac-e88d6c7d3167" />
+<img width="3837" height="1838" alt="Screenshot 2025-10-24 220931" src="https://github.com/user-attachments/assets/37463cd0-67a5-4b9d-8796-9048473e8637" />
+
 
