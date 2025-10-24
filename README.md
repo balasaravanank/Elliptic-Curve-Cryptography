@@ -69,9 +69,12 @@ int main() {
 
     return 0;
 }
-
+```
 ---
 ## OUTPUT
-<img width="3837" height="1838" alt="Screenshot 2025-10-24 220931" src="https://github.com/user-attachments/assets/37463cd0-67a5-4b9d-8796-9048473e8637" />
+<img width="3837" height="1838" alt="Screenshot 2025-10-24 220931" src="https://github.com/user-attachments/assets/427a62a1-42ec-4ca3-89d8-2decba08b04c" />
+
+
+
 
 
