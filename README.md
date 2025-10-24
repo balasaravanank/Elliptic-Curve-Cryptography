@@ -21,58 +21,41 @@ To implement key exchange between users using the Diffie-Hellman algorithm.
 ```c
 #include <stdio.h>
 
-long long int mod_exp(long long int base, long long int exp, long long int mod) {
-    long long int result = 1;
-    while (exp > 0) {
-        if (exp % 2 == 1)
-            result = (result * base) % mod;
-        exp = exp >> 1; 
-        base = (base * base) % mod;
-    }
-    return result;
+typedef struct { long long x, y, inf; } Point;
+
+Point add(Point p, Point q, long long P, long long A) {
+    if(p.inf) return q; if(q.inf) return p;
+    long long m = (p.x==q.x) ? ((3*p.x*p.x + A)/(2*p.y)) : ((q.y-p.y)/(q.x-p.x));
+    long long xr = (m*m - p.x - q.x) % P;
+    long long yr = (m*(p.x - xr) - p.y) % P;
+    return (Point){xr, yr, 0};
+}
+
+Point mul(Point p, long long k, long long P, long long A){
+    Point r = {0,0,1};
+    while(k){ if(k&1) r = add(r, p, P, A); p = add(p, p, P, A); k >>= 1; }
+    return r;
 }
 
 int main() {
-    long long int P, G, a, b, x, y, ka, kb;
+    long long P=23, A=1;           // small demo curve
+    Point G={9,7,0};                // generator point
+    long long dA=5, dB=7;           // private keys
+    Point QA = mul(G,dA,P,A);       // Alice public key
+    Point QB = mul(G,dB,P,A);       // Bob public key
 
-    printf("\n********* Diffie-Hellman Key Exchange Algorithm **********\n\n");
+    Point S1 = mul(QB,dA,P,A);      // Alice computes shared secret
+    Point S2 = mul(QA,dB,P,A);      // Bob computes shared secret
 
-    printf("Enter a prime number P: ");
-    scanf("%lld", &P); 
-    printf("The value of P: %lld\n", P);
-
-    printf("Enter a primitive root G for P: ");
-    scanf("%lld", &G); 
-    printf("The value of G: %lld\n\n", G);
-
-    printf("Enter the private key for Alice (a): ");
-    scanf("%lld", &a);
-    x = mod_exp(G, a, P);
-    printf("The public key for Alice (x = G^a mod P): %lld\n", x);
-
-    printf("Enter the private key for Bob (b): ");
-    scanf("%lld", &b);
-    y = mod_exp(G, b, P); 
-    printf("The public key for Bob (y = G^b mod P): %lld\n\n", y);
-
-    ka = mod_exp(y, a, P);
-    kb = mod_exp(x, b, P); 
-
-    printf("Shared secret key for Alice (ka = y^a mod P): %lld\n", ka);
-    printf("Shared secret key for Bob (kb = x^b mod P): %lld\n", kb);
-
-    if (ka == kb) {
-        printf("\nDiffie-Hellman Key Exchange successful. Both parties share the same key.\n");
-    } else {
-        printf("\nError: The keys for Alice and Bob do not match.\n");
-    }
-
-    return 0;
+    printf("Alice shared secret: (%lld,%lld)\n",S1.x,S1.y);
+    printf("Bob shared secret: (%lld,%lld)\n",S2.x,S2.y);
 }
+
 ```
 ---
 ## OUTPUT
-<img width="3837" height="1838" alt="Screenshot 2025-10-24 220931" src="https://github.com/user-attachments/assets/427a62a1-42ec-4ca3-89d8-2decba08b04c" />
+<img width="3839" height="1702" alt="Screenshot 2025-10-24 222240" src="https://github.com/user-attachments/assets/88f01624-c7ab-493c-a153-c479e9922c60" />
+
 
 ## RESULT
 The Diffie-Hellman key exchange algorithm has been successfully simulated, with correct execution of the program and verification of the results.
