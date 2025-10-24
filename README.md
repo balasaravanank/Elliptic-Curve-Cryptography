@@ -74,7 +74,8 @@ int main() {
 ## OUTPUT
 <img width="3837" height="1838" alt="Screenshot 2025-10-24 220931" src="https://github.com/user-attachments/assets/427a62a1-42ec-4ca3-89d8-2decba08b04c" />
 
-
+## RESULT
+The Diffie-Hellman key exchange algorithm has been successfully simulated, with correct execution of the program and verification of the results.
 
 
 
