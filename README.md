@@ -1,18 +1,28 @@
-# Implementation of Diffie-Hellman Algorithm
+# Implementation of Elliptic Curve Cryptography (ECC)
 
 ## AIM
-To implement key exchange between users using the Diffie-Hellman algorithm.
+To implement key exchange between users using Elliptic Curve Cryptography (ECC) and demonstrate the shared secret computation.
+
+---
+## THEORY
+Elliptic Curve Cryptography (ECC) is a form of public key cryptography based on the algebraic structure of elliptic curves over finite fields.  
+
+- Private key: an integer `d`  
+- Public key: a point `Q = d * G` on the curve  
+- Shared secret: `S = d * Q_other`  
+
+The shared secret allows secure communication without transmitting the private keys.
 
 ---
 
 ## ALGORITHM
-1. Select a large prime number `P` and a primitive root `G` of `P` (publicly known).  
-2. Alice selects a private key `a` and computes her public key `x = (G^a) mod P`.  
-3. Bob selects a private key `b` and computes his public key `y = (G^b) mod P`.  
-4. Alice and Bob exchange their public keys (`x` and `y`).  
-5. Alice computes the secret key as `ka = (y^a) mod P`.  
-6. Bob computes the secret key as `kb = (x^b) mod P`.  
-7. Both `ka` and `kb` will be the same, forming a shared secret key for secure communication.
+1. Choose a prime modulus `P` and curve parameter `A` for the elliptic curve `y^2 = x^3 + Ax + B (mod P)`.  
+2. Select a generator point `G(x, y)` on the curve.  
+3. Alice selects a private key `dA` and computes her public key `QA = dA * G`.  
+4. Bob selects a private key `dB` and computes his public key `QB = dB * G`.  
+5. Alice computes shared secret `S1 = dA * QB`.  
+6. Bob computes shared secret `S2 = dB * QA`.  
+7. Both `S1` and `S2` are equal, forming the shared secret key.
 
 ---
 
